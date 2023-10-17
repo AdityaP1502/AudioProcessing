@@ -11,6 +11,10 @@ if __name__ == "__main__":
   src = os.path.join("music", music_name)
   dst = os.path.join("temp", "temp.wav")
   
+  if not (os.path.isdir("temp")):
+    os.mkdir("temp")
+    
+  
   sound = AudioSegment.from_mp3(src)
   sound.set_channels(1)
   sound = sound[10 * 1000:60 * 1000]
