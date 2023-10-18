@@ -20,7 +20,7 @@ class CombFilter(CascadedBox):
     _delay_component.insert_input_node(_adder_component.get_output_node())
 
     super().insert_components((1, _delay_component), (0, _adder_component), (2, _gain_component))
-    super().set_output_node(_delay_component.get_output_node())
+    super().set_output_node(_adder_component.get_output_node())
 
   def insert_input_node(self, node):
     super().insert_input_node(node, 0)
