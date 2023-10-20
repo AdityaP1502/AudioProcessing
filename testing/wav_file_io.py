@@ -21,7 +21,7 @@ def read_wav(dst):
             data.append(chunk)
 
     # Convert the data list into a NumPy array
-    data = np.concatenate(data, axis=0)
+    data = np.concatenate(data, axis=0) / 32767 # normalize the signal leve
     original_length = len(data)
     padding = np.zeros(len(data) % 1024)
     data = np.concatenate((data, padding), axis=0)
@@ -35,7 +35,7 @@ def read_wav(dst):
 def save_wav(dst, **kwargs):
     # scaled = np.int16(kwargs["data"][:kwargs["original_length"]])
     scaled = np.int16(kwargs["data"][:kwargs["original_length"]] / \
-                      np.max(np.abs(kwargs["data"][:kwargs["original_length"]])) * 32767)
+                      np.max(np.abs(kwargs["data"][:kwargs["original_length"]])) * 32767) # scale back the audio input
     with wave.open(dst, 'w') as wav_file:
         wav_file.setnchannels(kwargs["n_channels"])
         wav_file.setsampwidth(kwargs["sample_width"])
