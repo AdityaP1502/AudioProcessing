@@ -1,7 +1,16 @@
+"""
+Implementation of node that will be used by components
+to connect to other components, allowing for implementation 
+of cascaded system. 
+"""
 import numpy as np
 
 
 class Nodes():
+    """
+    A class for creating a node for connecting between components. 
+    """
+    
     def __init__(self, chunks):
         self._chunks = chunks
         self._frames = np.zeros(self._chunks)
@@ -10,6 +19,10 @@ class Nodes():
         self._n_frame_used = 0
 
     def add_node_connection(self):
+        """
+        Add component that connect to this node
+        """
+
         self._n_nodes_connected += 1
 
     def get_frame(self):

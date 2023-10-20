@@ -1,9 +1,28 @@
+"""
+Module for implementation of comb filter
+Comb filter is based on the feedback comb filter diagram[1]
+[1]. https://www.dsprelated.com/freebooks/pasp/Feedback_Comb_Filters.html
+"""
+
 from core.cascaded_box import CascadedBox
 from box.arithmetic import Adder, Gain
 from box.delay import Delay
 
-
 class CombFilter(CascadedBox):
+    """
+    A Class for creating a comb filter components. 
+    This components is composed of a delay component, gain component, 
+    and an adder component. The output of comb filter is taken from
+    the adder output
+    
+    Attributes
+    ----------
+    _delay (float) : The amount of time (in seconds) the input line is delayed
+    _gain (float) : Gain factor for the delay line
+    _sample_rate (int) : The sample rate of the audio (in Hz)
+    _chunks (int) : The number of samples per segment
+    """
+
     def __init__(self, delay, gain, fs, chunks):
         super().__init__()
 
@@ -25,4 +44,9 @@ class CombFilter(CascadedBox):
         super().set_output_node(_adder_component.get_output_node())
 
     def insert_input_node(self, node):
+        """Insert input node into the components
+
+        Args:
+            node (Nodes): Input nodes
+        """
         super().insert_input_node_to_component(node, 0)
