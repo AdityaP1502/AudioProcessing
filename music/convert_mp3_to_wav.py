@@ -16,5 +16,8 @@ if __name__ == "__main__":
 
     sound = AudioSegment.from_mp3(src)
     sound.set_channels(1)
-    sound = sound[10 * 1000:60 * 1000]
+    
+    if len(sound) > 60 * 1000:
+        sound = sound[:60 * 1000]
+        
     sound.export(dst, format="wav")
