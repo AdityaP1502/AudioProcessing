@@ -2,12 +2,28 @@
 Implementation of tapped delay line. 
 https://www.dsprelated.com/freebooks/pasp/Tapped_Delay_Line_TDL.html
 """
+from numpy.typing import ArrayLike
 from core.cascaded_box import CascadedBox
 from box.arithmetic import Adder, Gain
 from box.delay import Delay
 
 class TappedDelayLine(CascadedBox):
-    def __init__(self, delay, gain, fs, chunks):
+    """
+    A class that implement tapped delay line system. 
+    """
+    
+    def __init__(self, delay: list[int], gain : list[float], fs : int, chunks : int):
+        """
+        Create a N tapped delay line system. 
+        The length of the tap is equal to the length of the delay parameter
+
+        Args:
+            delay (list[int]): The delay (in ms) of each tap. The length of the delay is must equal to the length of the gain.
+            gain (list[float]): The gain of each tap. The length of the gain is must equal to the length of the delay.
+            fs (int): sample rate
+            chunks (int): n sample in each segment
+        """
+        
         super().__init__()
 
         assert len(delay) == len(gain), "Invalid delay \
