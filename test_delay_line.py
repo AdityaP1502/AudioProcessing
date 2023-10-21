@@ -1,8 +1,11 @@
 import os.path
+import traceback
+import sys
 
 from core.nodes import Nodes
 from reverb.tapped_delay_line import TappedDelayLine
 from testing.wav_file_io import save_wav, read_wav
+from testing.test import Test
 
 
 if __name__ == "__main__":
@@ -29,11 +32,28 @@ if __name__ == "__main__":
     component = delay_line
 
     component.insert_input_node(input_node)
-    n_iter = len(data) // obj["chunks"]
+    # n_iter = len(data) // obj["chunks"]
 
-    for i in range(n_iter):
-        component.filter()
-        data[i * chunk_size : (i + 1) * chunk_size] = mix * data[i * chunk_size : (i + 1) * chunk_size] + \
-            component.get_output_node().get_frame()
+    # for i in range(n_iter):
+    #     component.filter()
+    #     data[i * chunk_size : (i + 1) * chunk_size] = mix * data[i * chunk_size : (i + 1) * chunk_size] + \
+    #         component.get_output_node().get_frame()
+    
+    test = Test(
+        component=component,
+        data=data,
+        chunks=chunk_size,
+        verbose=True
+    )
+
+    try:
+        test.start()
+        test.join()
+    except Exception as e:
+        traceback.print_exception(e)
+        print("Terminate testing without saving data")
+        sys.exit(1)
         
+    print('Saving data into ./temp/result.wav')
     save_wav(dst=os.path.join('temp', 'result.wav'), **obj)
+    print('Done.')
