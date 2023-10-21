@@ -55,12 +55,12 @@ if __name__ == "__main__":
     # )
 
     # Uncomment this
-    try:
-        test.start()
-        test.join()
-    except Exception as e:
-        traceback.print_exception(e)
-        print("Terminate testing without saving data")
-        sys.exit(1)
+    # try:
+    #     test.start()
+    #     test.join()
+    # except Exception as e:
+    #     traceback.print_exception(e)
+    #     print("Terminate testing without saving data")
+    #     sys.exit(1)
     
     # Do something here with your filtered data
