@@ -2,7 +2,6 @@
 Implementation of tapped delay line. 
 https://www.dsprelated.com/freebooks/pasp/Tapped_Delay_Line_TDL.html
 """
-from numpy.typing import ArrayLike
 from core.cascaded_box import CascadedBox
 from box.arithmetic import Adder, Gain
 from box.delay import Delay
